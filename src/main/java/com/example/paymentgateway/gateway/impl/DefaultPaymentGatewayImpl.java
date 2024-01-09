@@ -1,13 +1,18 @@
 package com.example.paymentgateway.gateway.impl;
 
+import com.example.paymentgateway.controller.PaymentController;
 import com.example.paymentgateway.gateway.PaymentGateway;
 import com.example.paymentgateway.model.request.PaymentRequest;
 import com.example.paymentgateway.model.response.PaymentResponse;
 import com.example.paymentgateway.provider.PaymentProvider;
 import com.example.paymentgateway.service.PaymentService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DefaultPaymentGatewayImpl implements PaymentGateway<PaymentResponse, PaymentRequest> {
@@ -15,7 +20,7 @@ public class DefaultPaymentGatewayImpl implements PaymentGateway<PaymentResponse
 
     @Override
     public PaymentResponse makePayment(PaymentRequest paymentRequest) {
-        System.out.println("in the DefaultPaymentGatewayImpl");
+        log.debug("in the DefaultPaymentGatewayImpl");
         return paymentProvider.getProvider(paymentRequest.getPaymentProviderType()).pay(paymentRequest);
     }
 
